@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BH Group | Architecture & Interiors Bangladesh</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link href="https://fonts.cdnfonts.com/css/norwester" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
-        
         :root {
-            --bh-green: #0F393A; /* Deep Teal Brand Color */
-            --bh-gold: #C5A059;  /* Luxury Gold */
+            --bh-green: #0F393A; 
+            --bh-gold: #C5A059;  
         }
         
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Norwester', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
         
         .hero-bg {
             background: linear-gradient(rgba(15, 57, 58, 0.9), rgba(15, 57, 58, 0.7)), url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
@@ -24,126 +34,188 @@
             background-attachment: fixed;
         }
 
-        /* Styling for your specific Projects Section */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Project Images */
         .before-after img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             border-radius: 8px;
-            transition: 0.3s ease;
+            transition: transform 0.5s ease;
         }
-        .before-after img:hover {
-            transform: scale(1.03);
+        .before-after:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
+
+        /* Budget Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px; width: 24px;
+            border-radius: 50%;
+            background: var(--bh-green);
+            cursor: pointer;
+            margin-top: -10px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer; background: #e5e7eb; border-radius: 2px;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1.02); }
+            50% { transform: translateY(-10px) scale(1.02); }
+            100% { transform: translateY(0px) scale(1.02); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate3d(0, 40px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+        .animate-hero { animation: fadeInUp 1s ease-out forwards; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 antialiased">
 
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <nav class="glass-nav shadow-lg sticky top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <img src="BH_logo.png" alt="BH Group Logo" class="h-14 w-auto object-contain">
+                <div class="animate-pulse">
+                    <img src="BH_logo.png" alt="BH Group Logo" class="h-14 w-auto object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <div class="hidden h-10 w-10 bg-[#0F393A] text-white flex items-center justify-center font-bold rounded brand-font">BH</div>
+                </div>
                 <div class="hidden md:block border-l border-gray-300 pl-3">
-                    <p class="text-xs font-bold text-[#0F393A] tracking-[0.2em] uppercase">BH GROUP</p>
+                    <p class="text-xs font-bold text-[#0F393A] tracking-[0.2em] uppercase brand-font">BH GROUP</p>
                     <p class="text-[10px] text-gray-500">Architecture | Interiors</p>
                 </div>
             </div>
             <div class="hidden md:flex space-x-6 text-xs font-bold tracking-widest text-[#0F393A]">
-                <a href="#projects" class="hover:text-[#C5A059] transition">REAL PROJECTS</a>
-                <a href="#catalog" class="hover:text-[#C5A059] transition">PRICING CATALOG</a>
-                <a href="#calculator" class="hover:text-[#C5A059] transition">CALCULATOR</a>
+                <a href="#projects" class="hover:text-[#C5A059] transition transform hover:scale-110 duration-300 brand-font">PROJECTS</a>
+                <a href="#catalog" class="hover:text-[#C5A059] transition transform hover:scale-110 duration-300 brand-font">PRICING</a>
+                <a href="#booking" class="hover:text-[#C5A059] transition transform hover:scale-110 duration-300 brand-font">BOOKING</a>
+                <a href="#calculator" class="hover:text-[#C5A059] transition transform hover:scale-110 duration-300 brand-font">CALCULATOR</a>
             </div>
-            <a href="#booking" class="bg-[#0F393A] text-white px-6 py-3 rounded-sm text-xs font-bold tracking-widest hover:bg-[#C5A059] transition">BOOK CONSULTATION</a>
+            <a href="#booking" class="bg-[#0F393A] text-white px-6 py-3 rounded-sm text-xs font-bold tracking-widest hover:bg-[#C5A059] transition shadow-lg hover:shadow-xl transform hover:-translate-y-1 duration-300 brand-font">BOOK CONSULTATION</a>
         </div>
     </nav>
 
-    <header class="hero-bg h-[60vh] flex flex-col justify-center items-center text-center text-white px-4">
-        <div class="border border-[#C5A059] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 bg-black/30 backdrop-blur-sm">Rising Minds Event Partner</div>
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">Authentic Design.<br>Transparent Pricing.</h1>
-        <p class="text-lg text-gray-200 mb-8 max-w-2xl font-light">
+    <header class="hero-bg h-[60vh] flex flex-col justify-center items-center text-center text-white px-4 overflow-hidden">
+        <div class="animate-hero" style="animation-delay: 0.1s;">
+            <div class="inline-block border border-[#C5A059] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6 bg-black/30 backdrop-blur-sm brand-font">Rising Minds Event Partner</div>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight animate-hero" style="animation-delay: 0.3s;">
+            Authentic Design.<br>Transparent Pricing.
+        </h1>
+        <p class="text-lg text-gray-200 mb-8 max-w-2xl font-light animate-hero" style="animation-delay: 0.5s;">
             We bridge the gap between "Instagram Dreams" and "Real Budgets" with our structured Design Freeze Policy.
         </p>
-        <a href="#catalog" class="bg-[#C5A059] text-[#0F393A] px-8 py-3 font-bold rounded shadow-xl hover:bg-white transition">View Pricing Catalog</a>
+        <div class="animate-hero" style="animation-delay: 0.7s;">
+            <a href="#catalog" class="bg-[#C5A059] text-[#0F393A] px-8 py-3 font-bold rounded shadow-xl hover:bg-white transition duration-300 transform hover:scale-105 inline-block brand-font">
+                View Pricing Catalog
+            </a>
+        </div>
     </header>
 
-    <section id="projects" class="py-20 max-w-7xl mx-auto px-6">
-        <h3 class="text-3xl font-bold text-center mb-12 text-[#0F393A]">
+    <section id="projects" class="py-20 max-w-7xl mx-auto px-6 overflow-hidden">
+        <h3 class="text-3xl font-bold text-center mb-12 text-[#0F393A] brand-font" data-aos="fade-up">
             Real Projects – Before & After
         </h3>
       
         <div class="grid md:grid-cols-2 gap-10">
-          <div class="bg-white p-6 shadow-lg rounded-xl border-t-4 border-[#0F393A]">
-            <div class="before-after grid grid-cols-2 gap-3 mb-4">
-              <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="Before">
-              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" alt="After">
+            <div class="bg-white p-6 shadow-lg rounded-xl border-t-4 border-[#0F393A] hover:shadow-2xl transition duration-500" data-aos="fade-right" data-aos-duration="1000">
+                <div class="before-after grid grid-cols-2 gap-3 mb-4 overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" alt="Before">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" alt="After">
+                </div>
+                <h4 class="font-bold text-xl text-[#0F393A] brand-font">Residential Apartment – 1450 sqft</h4>
+                <p class="text-sm text-gray-600 mt-2"><span class="font-bold text-[#C5A059]">Budget: ৳45 Lakh</span> | Timeline: 4 Months</p>
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-widest">Location: Gulshan Avenue</p>
             </div>
-            <h4 class="font-bold text-xl text-[#0F393A]">Residential Apartment – 1450 sqft</h4>
-            <p class="text-sm text-gray-600 mt-2"><span class="font-bold text-[#C5A059]">Budget: ৳45 Lakh</span> | Timeline: 4 Months</p>
-          </div>
       
-          <div class="bg-white p-6 shadow-lg rounded-xl border-t-4 border-[#0F393A]">
-            <div class="before-after grid grid-cols-2 gap-3 mb-4">
-              <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2" alt="Before">
-              <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77" alt="After">
+            <div class="bg-white p-6 shadow-lg rounded-xl border-t-4 border-[#0F393A] hover:shadow-2xl transition duration-500" data-aos="fade-left" data-aos-duration="1000">
+                <div class="before-after grid grid-cols-2 gap-3 mb-4 overflow-hidden rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2" alt="Before">
+                    <img src="https://images.unsplash.com/photo-1556912173-3bb406ef7e77" alt="After">
+                </div>
+                <h4 class="font-bold text-xl text-[#0F393A] brand-font">Modern Kitchen Renovation</h4>
+                <p class="text-sm text-gray-600 mt-2"><span class="font-bold text-[#C5A059]">Budget: ৳12 Lakh</span> | Timeline: 45 Days</p>
+                <p class="text-xs text-gray-400 mt-1 uppercase tracking-widest">Location: Banani DOHS</p>
             </div>
-            <h4 class="font-bold text-xl text-[#0F393A]">Modern Kitchen Renovation</h4>
-            <p class="text-sm text-gray-600 mt-2"><span class="font-bold text-[#C5A059]">Budget: ৳12 Lakh</span> | Timeline: 45 Days</p>
-          </div>
         </div>
     </section>
 
-    <section id="catalog" class="py-20 bg-gray-50">
+    <section id="catalog" class="py-20 bg-gray-50 overflow-hidden">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-[#0F393A]">Pricing Catalog</h2>
-                <p class="text-gray-500 mt-2">Choose the material grade that fits your investment plan.</p>
+            <div class="text-center mb-12" data-aos="zoom-in">
+                <h2 class="text-3xl font-bold text-[#0F393A] brand-font">Pricing Catalog</h2>
+                <p class="text-gray-500 mt-2">Comprehensive packages with clear deliverables.</p>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="grid md:grid-cols-3 gap-6">
                 
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-gray-400 p-8 hover:-translate-y-2 transition duration-300">
-                    <h3 class="text-2xl font-bold text-gray-700 mb-1">BASIC</h3>
-                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-6">Functional Design</p>
-                    <div class="text-3xl font-bold text-[#0F393A] mb-6">৳1,200<span class="text-sm text-gray-400 font-normal"> / sft</span></div>
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-gray-400 p-6 hover:-translate-y-4 hover:shadow-2xl transition-all duration-500 cursor-pointer group" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold text-gray-700 mb-1 group-hover:text-[#0F393A] transition brand-font">BASIC</h3>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-4">Functional Design</p>
+                    <div class="text-3xl font-bold text-[#0F393A] mb-6 brand-font">৳1,200<span class="text-sm text-gray-400 font-sans font-normal"> / sft</span></div>
                     
                     <ul class="space-y-3 text-sm text-gray-600 mb-8">
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Board:</strong> Standard Melamine</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Edging:</strong> Local PVC</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Hardware:</strong> Local / Chinese</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Finish:</strong> Matte / Texture</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Standard Melamine Board</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Local PVC Edging</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Basic 2D Layout Plan</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Paint: Standard Emulsion</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Site Supervision (Weekly)</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Warranty:</strong> 1 Year Service</span></li>
                     </ul>
-                    <a href="#calculator" class="block text-center border border-gray-400 text-gray-600 font-bold py-2 rounded hover:bg-gray-100">Calculate Cost</a>
+                    <a href="#calculator" class="block text-center border border-gray-400 text-gray-600 font-bold py-2 rounded group-hover:bg-[#0F393A] group-hover:text-white transition brand-font">Calculate Cost</a>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-2xl border-t-4 border-[#C5A059] p-8 transform scale-105 z-10 relative">
-                    <div class="absolute top-0 right-0 bg-[#C5A059] text-white text-[10px] font-bold px-3 py-1 rounded-bl">POPULAR</div>
-                    <h3 class="text-2xl font-bold text-[#0F393A] mb-1">STANDARD</h3>
-                    <p class="text-xs text-[#C5A059] uppercase tracking-widest mb-6">Balanced Quality</p>
-                    <div class="text-3xl font-bold text-[#0F393A] mb-6">৳2,500<span class="text-sm text-gray-400 font-normal"> / sft</span></div>
+                <div class="bg-white rounded-xl shadow-2xl border-t-4 border-[#C5A059] p-6 z-10 relative animate-float cursor-pointer group" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 bg-[#C5A059] text-white text-[10px] font-bold px-3 py-1 rounded-bl brand-font">POPULAR</div>
+                    <h3 class="text-2xl font-bold text-[#0F393A] mb-1 brand-font">STANDARD</h3>
+                    <p class="text-xs text-[#C5A059] uppercase tracking-widest mb-4">Balanced Quality</p>
+                    <div class="text-3xl font-bold text-[#0F393A] mb-6 brand-font">৳2,500<span class="text-sm text-gray-400 font-sans font-normal"> / sft</span></div>
                     
                     <ul class="space-y-3 text-sm text-gray-600 mb-8">
-                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span><strong>Board:</strong> High-Gloss Acrylic / HPL</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span><strong>Edging:</strong> Machine Pasted</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span><strong>Hardware:</strong> Imported (Soft Close)</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span><strong>Includes:</strong> 3D Visualization</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span>High-Gloss Acrylic / HPL</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span>Machine Pasted Edging</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span>Partial False Ceiling</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span>Imported Soft-Close Hinges</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span>Lighting Design Plan</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span>3D Visualization (2 Views)</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-[#C5A059] mt-1 mr-3"></i> <span><strong>Warranty:</strong> 5 Years Service</span></li>
                     </ul>
-                    <a href="#calculator" class="block text-center bg-[#0F393A] text-white font-bold py-3 rounded hover:bg-[#C5A059] transition">Calculate Cost</a>
+                    <a href="#calculator" class="block text-center bg-[#0F393A] text-white font-bold py-3 rounded hover:bg-[#C5A059] transition shadow-lg brand-font">Calculate Cost</a>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-md border-t-4 border-[#0F393A] p-8 hover:-translate-y-2 transition duration-300">
-                    <h3 class="text-2xl font-bold text-[#0F393A] mb-1">PREMIUM</h3>
-                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-6">Luxury & Custom</p>
-                    <div class="text-3xl font-bold text-[#0F393A] mb-6">৳4,500<span class="text-sm text-gray-400 font-normal"> / sft</span></div>
+                <div class="bg-white rounded-xl shadow-md border-t-4 border-[#0F393A] p-6 hover:-translate-y-4 hover:shadow-2xl transition-all duration-500 cursor-pointer group" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold text-[#0F393A] mb-1 brand-font">PREMIUM</h3>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-4">Luxury & Custom</p>
+                    <div class="text-3xl font-bold text-[#0F393A] mb-6 brand-font">৳4,500<span class="text-sm text-gray-400 font-sans font-normal"> / sft</span></div>
                     
                     <ul class="space-y-3 text-sm text-gray-600 mb-8">
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Material:</strong> Solid Wood / Veneer</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Countertops:</strong> Marble / Granite</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Hardware:</strong> Hafele / Blum (Germany)</span></li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Tech:</strong> Smart Home Integration</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Solid Wood / Premium Veneer</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Marble / Granite Countertops</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Full Decorative Ceiling</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Hafele / Blum Hardware (Germany)</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Smart Home Integration</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span>Full VR Walkthrough</span></li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span><strong>Warranty:</strong> Lifetime Service</span></li>
                     </ul>
-                    <a href="#calculator" class="block text-center border border-[#0F393A] text-[#0F393A] font-bold py-2 rounded hover:bg-[#0F393A] hover:text-white">Calculate Cost</a>
+                    <a href="#calculator" class="block text-center border border-[#0F393A] text-[#0F393A] font-bold py-2 rounded group-hover:bg-[#0F393A] group-hover:text-white transition brand-font">Calculate Cost</a>
                 </div>
-
             </div>
         </div>
     </section>
@@ -152,12 +224,12 @@
         <div class="container mx-auto px-6 max-w-6xl">
             <div class="grid md:grid-cols-2 gap-16 items-start">
                 
-                <div>
-                    <h2 class="text-3xl font-bold mb-4">Project Readiness Check</h2>
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl font-bold mb-4 brand-font">Project Readiness Check</h2>
                     <p class="text-gray-300 text-sm mb-8">We use the <strong>Design Maturity Score (DMS)</strong> to prioritize clients who are ready for execution.</p>
                     
-                    <div class="bg-white/10 p-6 rounded-lg space-y-4 backdrop-blur-sm border border-white/20">
-                        <div>
+                    <div class="bg-white/10 p-6 rounded-lg space-y-4 backdrop-blur-sm border border-white/20 shadow-inner">
+                        <div class="transition transform hover:translate-x-1">
                             <label class="block text-xs font-bold uppercase tracking-wider mb-2 text-[#C5A059]">1. Budget Status</label>
                             <select id="dms-q1" class="w-full bg-[#0F393A] border border-gray-500 rounded p-2 text-sm focus:border-[#C5A059] outline-none">
                                 <option value="0">Select...</option>
@@ -166,7 +238,7 @@
                                 <option value="0">Budget not decided</option>
                             </select>
                         </div>
-                        <div>
+                        <div class="transition transform hover:translate-x-1">
                             <label class="block text-xs font-bold uppercase tracking-wider mb-2 text-[#C5A059]">2. Decision Maker</label>
                             <select id="dms-q2" class="w-full bg-[#0F393A] border border-gray-500 rounded p-2 text-sm focus:border-[#C5A059] outline-none">
                                 <option value="0">Select...</option>
@@ -174,7 +246,7 @@
                                 <option value="20">Family/Partner Consensus</option>
                             </select>
                         </div>
-                        <div>
+                        <div class="transition transform hover:translate-x-1">
                             <label class="block text-xs font-bold uppercase tracking-wider mb-2 text-[#C5A059]">3. Timeline</label>
                             <select id="dms-q3" class="w-full bg-[#0F393A] border border-gray-500 rounded p-2 text-sm focus:border-[#C5A059] outline-none">
                                 <option value="0">Select...</option>
@@ -182,21 +254,21 @@
                                 <option value="10">Urgent (1 Month)</option>
                             </select>
                         </div>
-                        <button onclick="calculateDMS()" class="w-full bg-[#C5A059] text-[#0F393A] font-bold py-2 rounded hover:bg-white transition">CHECK SCORE</button>
+                        <button onclick="calculateDMS()" class="w-full bg-[#C5A059] text-[#0F393A] font-bold py-2 rounded hover:bg-white transition shadow-lg hover:shadow-[0_0_15px_rgba(197,160,89,0.5)] brand-font mt-2">CHECK SCORE</button>
                     </div>
                 </div>
 
-                <div class="bg-white text-gray-800 p-8 rounded-lg shadow-2xl">
+                <div class="bg-white text-gray-800 p-8 rounded-lg shadow-2xl" data-aos="fade-left" data-aos-delay="200">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-2xl font-bold text-[#0F393A]">Book Consultation</h3>
-                        <span id="score-badge" class="hidden px-3 py-1 rounded text-xs font-bold uppercase"></span>
+                        <h3 class="text-2xl font-bold text-[#0F393A] brand-font">Book Consultation</h3>
+                        <span id="score-badge" class="hidden px-3 py-1 rounded text-xs font-bold uppercase transition-all duration-300 transform scale-0" style="transform: scale(1);"></span>
                     </div>
 
                     <form onsubmit="event.preventDefault(); alert('Booking Request Sent!');">
                         <div class="space-y-4">
-                            <input type="text" placeholder="Full Name" class="w-full border p-3 rounded text-sm bg-gray-50 focus:border-[#0F393A] outline-none">
-                            <input type="text" placeholder="Mobile (+880)" class="w-full border p-3 rounded text-sm bg-gray-50 focus:border-[#0F393A] outline-none">
-                            <input type="text" placeholder="Location (e.g. Gulshan)" class="w-full border p-3 rounded text-sm bg-gray-50 focus:border-[#0F393A] outline-none">
+                            <input type="text" placeholder="Full Name" class="w-full border p-3 rounded text-sm bg-gray-50 focus:border-[#0F393A] outline-none transition focus:ring-1 focus:ring-[#0F393A]">
+                            <input type="text" placeholder="Mobile (+880)" class="w-full border p-3 rounded text-sm bg-gray-50 focus:border-[#0F393A] outline-none transition focus:ring-1 focus:ring-[#0F393A]">
+                            <input type="text" placeholder="Location (e.g. Gulshan)" class="w-full border p-3 rounded text-sm bg-gray-50 focus:border-[#0F393A] outline-none transition focus:ring-1 focus:ring-[#0F393A]">
                             
                             <div class="bg-gray-100 p-3 rounded border border-gray-200">
                                 <label class="flex items-start gap-3 cursor-pointer">
@@ -207,7 +279,7 @@
                                 </label>
                             </div>
 
-                            <button id="book-btn" class="w-full bg-gray-400 text-white font-bold py-4 rounded transition cursor-not-allowed" disabled>CHECK SCORE FIRST</button>
+                            <button id="book-btn" class="w-full bg-gray-400 text-white font-bold py-4 rounded transition cursor-not-allowed brand-font" disabled>CHECK SCORE FIRST</button>
                         </div>
                     </form>
                 </div>
@@ -215,22 +287,39 @@
         </div>
     </section>
 
-    <section id="calculator" class="py-20 bg-white border-t">
-        <div class="container mx-auto max-w-2xl text-center">
-            <h2 class="text-3xl font-bold text-[#0F393A] mb-8">Budget Calculator</h2>
-            <div class="bg-gray-100 p-8 rounded-xl shadow-inner">
-                <div class="grid md:grid-cols-2 gap-4 mb-4">
-                    <input id="calc-sqft" type="number" placeholder="Total Sqft" class="border p-3 rounded w-full">
-                    <select id="calc-tier" class="border p-3 rounded w-full">
-                        <option value="1200">Basic (৳1,200)</option>
-                        <option value="2500">Standard (৳2,500)</option>
-                        <option value="4500">Premium (৳4,500)</option>
+    <section id="calculator" class="py-20 bg-white border-t overflow-hidden">
+        <div class="container mx-auto max-w-2xl text-center" data-aos="zoom-in-up">
+            <h2 class="text-3xl font-bold text-[#0F393A] mb-8 brand-font">Interactive Budget Estimator</h2>
+            
+            <div class="bg-gray-100 p-8 rounded-xl shadow-inner hover:shadow-lg transition duration-500">
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-4">
+                        <label class="text-xs font-bold uppercase tracking-widest text-gray-500">Total Area</label>
+                        <div class="text-[#0F393A] brand-font text-2xl">
+                            <span id="sqft-display">1200</span> <span class="text-sm text-gray-500 font-sans">sqft</span>
+                        </div>
+                    </div>
+                    
+                    <input type="range" id="calc-sqft" min="500" max="5000" step="50" value="1200">
+                    
+                    <div class="flex justify-between text-[10px] text-gray-400 mt-2 font-bold uppercase">
+                        <span>500 sqft</span>
+                        <span>5000 sqft</span>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2 text-left">Select Material Grade</label>
+                    <select id="calc-tier" class="border-2 border-gray-200 p-3 rounded w-full focus:outline-none focus:border-[#0F393A] transition text-gray-700 font-bold">
+                        <option value="1200">Basic (৳1,200 / sft)</option>
+                        <option value="2500" selected>Standard (৳2,500 / sft)</option>
+                        <option value="4500">Premium (৳4,500 / sft)</option>
                     </select>
                 </div>
-                <button onclick="calcBudget()" class="w-full bg-[#0F393A] text-white font-bold py-3 rounded hover:bg-[#C5A059]">CALCULATE TOTAL</button>
-                <div id="calc-result" class="hidden mt-6 p-4 bg-white border border-[#C5A059] rounded">
-                    <span class="text-xs uppercase text-gray-500">Estimated Cost</span>
-                    <div class="text-3xl font-bold text-[#0F393A]" id="total-cost">৳0</div>
+
+                <div class="bg-[#0F393A] rounded-lg p-6 text-white shadow-xl transform transition hover:scale-105 duration-300">
+                    <span class="text-xs uppercase text-[#C5A059] tracking-widest block mb-1">Estimated Investment</span>
+                    <div class="text-4xl font-bold brand-font" id="total-cost">৳30,00,000</div>
                 </div>
             </div>
         </div>
@@ -241,7 +330,29 @@
         <p class="text-xs text-gray-400">© 2026 BH Group Bangladesh.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({ once: true, offset: 100, duration: 800 });
+
+        // CALCULATOR LOGIC
+        const slider = document.getElementById('calc-sqft');
+        const display = document.getElementById('sqft-display');
+        const tier = document.getElementById('calc-tier');
+        const totalDisplay = document.getElementById('total-cost');
+
+        function updateCalc() {
+            const sqft = slider.value;
+            const rate = tier.value;
+            display.textContent = sqft;
+            const total = sqft * rate;
+            totalDisplay.innerText = "৳ " + total.toLocaleString();
+        }
+
+        slider.addEventListener('input', updateCalc);
+        tier.addEventListener('change', updateCalc);
+        updateCalc(); // Run on load
+
+        // DMS LOGIC
         function calculateDMS() {
             const q1 = parseInt(document.getElementById('dms-q1').value);
             const q2 = parseInt(document.getElementById('dms-q2').value);
@@ -254,31 +365,21 @@
             const badge = document.getElementById('score-badge');
             
             badge.classList.remove('hidden');
+            badge.style.transform = "scale(1)";
             badge.innerText = "DMS: " + score + "/100";
 
             if(score >= 80) {
-                badge.className = "px-3 py-1 rounded text-xs font-bold uppercase bg-green-100 text-green-800";
-                btn.className = "w-full bg-[#0F393A] text-white font-bold py-4 rounded hover:bg-[#C5A059] transition shadow-lg";
+                badge.className = "px-3 py-1 rounded text-xs font-bold uppercase bg-green-100 text-green-800 animate-pulse";
+                btn.className = "w-full bg-[#0F393A] text-white font-bold py-4 rounded hover:bg-[#C5A059] transition shadow-lg brand-font";
                 btn.innerText = "REQUEST PRIORITY APPOINTMENT";
                 btn.disabled = false;
             } else {
                 badge.className = "px-3 py-1 rounded text-xs font-bold uppercase bg-yellow-100 text-yellow-800";
-                btn.className = "w-full bg-[#C5A059] text-white font-bold py-4 rounded hover:bg-[#0F393A] transition shadow-lg";
+                btn.className = "w-full bg-[#C5A059] text-white font-bold py-4 rounded hover:bg-[#0F393A] transition shadow-lg brand-font";
                 btn.innerText = "REQUEST CONSULTATION";
                 btn.disabled = false;
-            }
-        }
-
-        function calcBudget() {
-            const sqft = document.getElementById('calc-sqft').value;
-            const tier = document.getElementById('calc-tier').value;
-            if(sqft > 0) {
-                const total = sqft * tier;
-                document.getElementById('calc-result').classList.remove('hidden');
-                document.getElementById('total-cost').innerText = "৳ " + total.toLocaleString();
             }
         }
     </script>
 </body>
 </html>
-
